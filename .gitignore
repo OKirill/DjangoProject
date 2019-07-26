@@ -2,3 +2,7 @@
 \.idea/
 
 samplesite/__pycache__/
+
+bboard/__pycache__/
+
+bboard/migrations/__pycache__/
