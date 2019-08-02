@@ -3,7 +3,9 @@ from django.template import loader
 from django.shortcuts import render
 from .models import Bb
 from .models import Rubric
+from  django.views.generic.edit import CreateView
 
+from .forms import BbForm
 
 def index(request):
     bbs = Bb.objects.all()
@@ -29,3 +31,13 @@ def by_rubric(request, rubric_id):
     # for bb in Bb.objects.order_by('-published'):
     #     s += bb.title + '\r\n' + bb.content + '\r\n\r\n'
     # return HttpResponse(s, content_type='text/plain; charset=utf-8')
+
+class BbCreateView(CreateView):
+    template_name = 'bboard/create.html'
+    form_class = BbForm
+    success_url = '/bboard/'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['rubrics'] = Rubric.objects.all()
+        return context
